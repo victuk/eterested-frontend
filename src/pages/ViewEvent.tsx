@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { getEventById, registerForAnEvent } from "../apiCalls/apiSdk";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
 import moment from "moment";
 import { IoMdClose } from "react-icons/io";
 import { MdOutlineDelete } from "react-icons/md";

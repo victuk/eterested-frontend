@@ -7,7 +7,6 @@ import { getEvents } from "../apiCalls/apiSdk";
 import moment from "moment";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { MdSearchOff } from "react-icons/md";
 import { useDispatch } from "react-redux";

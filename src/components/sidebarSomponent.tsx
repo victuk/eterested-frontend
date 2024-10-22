@@ -16,7 +16,6 @@ import { RxAvatar } from "react-icons/rx";
 import { LuLogOut } from "react-icons/lu";
 import { LuLogIn } from "react-icons/lu";
 import { GoPersonAdd } from "react-icons/go";
-import { RiHeartsLine } from "react-icons/ri";
 
 export function SidebarComponent() {
   const dispatch = useDispatch();
