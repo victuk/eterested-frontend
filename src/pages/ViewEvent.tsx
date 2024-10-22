@@ -166,7 +166,7 @@ export default function ViewEventPage() {
             <div>{eventDetails.venue}</div>
           </div>
         </div>
-        <div className="mt-8 bg-[#133F40] w-[90%] md:w-[450px] mr-auto p-8 rounded-r-[40px] relative flex flex-col gap-4">
+        <div className="mt-8 bg-[#133F40] w-[90%] md:w-[450px] mr-auto p-8 rounded-r-[40px] relative flex flex-col gap-4" id="tickets">
           <div className="w-fit absolute left-[50%] translate-x-[-50%] top-[-15px] bg-white text-[#133F40] font-bold text-[20px] rounded-[20px] px-4 border-2 border-[#133F40]">
             Tickets
           </div>

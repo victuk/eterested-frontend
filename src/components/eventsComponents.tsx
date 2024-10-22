@@ -90,6 +90,7 @@ export function EventsComponent() {
                   writingMode: "vertical-lr",
                   transform: "rotate(-180deg)",
                 }}
+                onClick={() => {navigate(`/event/${event._id}#tickets`)}}
                 className="bg-[#DFBB67] px-1 py-4 rounded-3xl font-bold cursor-pointer"
               >
                 <div>GET TICKET</div>
