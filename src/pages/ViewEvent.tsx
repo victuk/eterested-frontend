@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import DefaultLayout from "../components/layout/defaultLayout";
 import { useEffect, useState } from "react";
 import { EventInterface } from "../interfaces/responseInterfaces";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getEventById, registerForAnEvent } from "../apiCalls/apiSdk";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
@@ -12,9 +12,10 @@ import { MdOutlineDelete } from "react-icons/md";
 import { SpinLoaderTwo } from "../components/spinnerComponents";
 import PaystackPop from "@paystack/inline-js";
 import { customErrorHandler } from "../utils/customErrorHandler";
+import { checIfLoggedIn } from "../utils/checkIfLoggedIn";
 
 export default function ViewEventPage() {
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const [ticketModalState, setTicketModalState] = useState("idle");
 
@@ -200,8 +201,15 @@ export default function ViewEventPage() {
                 <button
                   className="bg-[#DFBB67] text-black font-bold py-2 rounded-[20px]"
                   onClick={() => {
-                    setShowModal(true);
-                    setTicketTypeChoosen(ticket.ticketType);
+                    if(checIfLoggedIn()) {
+                      setShowModal(true);
+                      setTicketTypeChoosen(ticket.ticketType);
+                    } else {
+                      toast("You are not logged in, redirecting...");
+                      setTimeout(() => {
+                        navigate("/login");
+                      }, 3000);
+                    }
                   }}
                 >
                   BUY
