@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createEventSlice from "./slices/createEventSlice";
+import eventSearchSlice from './slices/eventSearchSlice';
 
 export const store = configureStore({
   reducer: {
-    createEvent: createEventSlice
+    createEvent: createEventSlice,
+    eventSearch: eventSearchSlice
   },
 })
 

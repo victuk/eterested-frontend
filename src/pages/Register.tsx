@@ -6,6 +6,7 @@ import { register } from "../apiCalls/apiSdk";
 import { SpinLoaderTwo } from "../components/spinnerComponents";
 import { tagProperties } from "../utils/tagProperties";
 import { Tags } from "../interfaces/responseInterfaces";
+import stateAndLga from "../nigeria-state-and-lgas.json";
 
 export default function RegisterPage() {
   const schema = Joi.object({
