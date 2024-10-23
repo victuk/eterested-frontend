@@ -245,6 +245,33 @@ async function myProfile() {
     }
 }
 
+interface EditProfile {
+    firstName?: string;
+    lastName?: string;
+    organizationName?: string;
+    phoneNumber?: string;
+    tags?: string[];
+    cityOrLGA?: string;
+    state?: string;
+    profilePic?: string;
+}
+
+async function editMyProfile(payload: EditProfile) {
+    try {
+       
+        const response = await axios.put(createUrl(`v1/user/profile`), payload, {
+            headers: {
+                Authorization: getAuthToken()
+            }
+        });
+
+        return createResponseObject(false, response, null);
+
+    } catch (error) {
+        return createResponseObject(true, null, error);
+    }
+}
+
 async function myEvents(page: number = 1, limit: number = 20) {
     try {
        
@@ -372,6 +399,26 @@ async function uploadFiles(files: any) {
     }
 }
 
+
+
+async function editMyPassword(password: string, confirmPassword: string) {
+    try {
+       
+        const response = await axios.put(createUrl(`v1/user/password`), {
+            password, confirmPassword
+        }, {
+            headers: {
+                Authorization: getAuthToken()
+            }
+        });
+
+        return createResponseObject(false, response, null);
+
+    } catch (error) {
+        return createResponseObject(true, null, error);
+    }
+}
+
 export {
     register,
     verifyEmail,
@@ -390,5 +437,7 @@ export {
     myTickets,
     uploadFile,
     uploadFiles,
-    getAuthToken
+    getAuthToken,
+    editMyProfile,
+    editMyPassword
 }

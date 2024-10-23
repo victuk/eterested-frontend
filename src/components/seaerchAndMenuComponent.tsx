@@ -2,8 +2,7 @@ import { BsSearch } from "react-icons/bs";
 import { MdMenu } from "react-icons/md";
 import { toggleSidebar } from "../store/slices/createEventSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../store/store";
 import { updateEventSearch } from "../store/slices/eventSearchSlice";
 

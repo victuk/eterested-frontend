@@ -11,17 +11,11 @@ import DefaultLayout from "../components/layout/defaultLayout";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineAccessTime, MdSearchOff } from "react-icons/md";
 import moment from "moment";
-import { RootState } from "../store/store";
-import { useSelector } from "react-redux";
 
 export default function SearchResultPage() {
   const [tabValue, setTabValue] = useState("events");
 
   const navigate = useNavigate();
-
-  const searchValue = useSelector(
-    (state: RootState) => state.eventSearch.search
-  );
 
   const [eventsSearchResult, setEventsSearchResult] =
     useState<PaginatedReponseInterface>({

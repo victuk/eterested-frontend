@@ -14,8 +14,9 @@ import { toggleEventState } from "../store/slices/createEventSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { getLGAs, getStates } from "../utils/getStateAndLGA";
 
 export function CreateEventComponent() {
   const showModal = useSelector((state: RootState) => state.createEvent.value);
@@ -179,6 +180,22 @@ export function CreateEventComponent() {
     }
   };
 
+  const [lgas, setLgas] = useState<string[]>([]);
+
+  const updateLocalGovernment = () => {
+    const lgaResult = getLGAs(state);
+    console.log(lgaResult);
+    if(lgaResult != undefined) {
+
+      setLgas(lgaResult);
+    }
+
+  }
+
+  useEffect(() => {
+    updateLocalGovernment();
+  }, [state]);
+
   return (
     <div
       className={`${
@@ -269,7 +286,7 @@ export function CreateEventComponent() {
                 }}
               >
                 <option value="">Select</option>
-                <option value="akwa ibom">Akwa Ibom</option>
+                {getStates().map((state: string) => (<option value={state}>{state}</option>))}
               </select>
             </div>
 
@@ -283,7 +300,7 @@ export function CreateEventComponent() {
                 }}
               >
                 <option value="">Select</option>
-                <option value="eket">Eket</option>
+                {lgas.length > 0 && lgas.map((s: string) => (<option value={s}>{s}</option>))}
               </select>
             </div>
 
