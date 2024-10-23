@@ -15,7 +15,8 @@ import { customErrorHandler } from "../utils/customErrorHandler";
 import { checIfLoggedIn } from "../utils/checkIfLoggedIn";
 
 export default function ViewEventPage() {
-    const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const [ticketModalState, setTicketModalState] = useState("idle");
 
@@ -167,161 +168,163 @@ export default function ViewEventPage() {
             <div>{eventDetails.venue}</div>
           </div>
         </div>
-        <div className="mt-8 bg-[#133F40] w-[90%] md:w-[450px] mr-auto p-8 rounded-r-[40px] relative flex flex-col gap-4" id="tickets">
-          <div className="w-fit absolute left-[50%] translate-x-[-50%] top-[-15px] bg-white text-[#133F40] font-bold text-[20px] rounded-[20px] px-4 border-2 border-[#133F40]">
+        <div className="mt-8 w-full border-t-2 border-black/[0.2] p-8 relative flex flex-col gap-4" id="tickets">
+          <div className="w-fit absolute left-[50%] translate-x-[-50%] top-[-18px] bg-white text-[#133F40] font-bold text-[20px] px-4">
             Tickets
           </div>
-          {ticketDetails.map((ticket: any, index: number) => {
-            return (
-              <div
-                className="rounded-[20px] bg-white text-black p-4 flex flex-col gap-2"
-                key={index}
-              >
-                <small
-                  style={{ fontFamily: "cursive" }}
-                  className="px-4 py-1 w-fit border-2 border-[#DFBB67] text-[#DFBB67] font-bold rounded-[20px]"
-                >
-                  {(ticket.ticketType as string).toLocaleUpperCase().replace(/-/, " ")}
-                </small>
-                <div className="flex items-center gap-1">
-                  <div
-                    style={{ fontFamily: "cursive" }}
-                    className="text-[20px] font-bold"
-                  >
-                    NGN{ticket.cost}{" "}
-                    <span className="text-black/[0.5]">per person</span>
-                  </div>
-                </div>
-                <div className="text-black/[0.8]">
-                  {ticket.ticketDescription}
-                </div>
-                <div>
-                    {ticket.totalTicketsBought} of {ticket.totalTicketsAvailable}
-                </div>
-                <button
-                  className="bg-[#DFBB67] text-black font-bold py-2 rounded-[20px]"
-                  onClick={() => {
-                    if(checIfLoggedIn()) {
-                      setShowModal(true);
-                      setTicketTypeChoosen(ticket.ticketType);
-                    } else {
-                      toast("You are not logged in, redirecting...");
-                      setTimeout(() => {
-                        navigate("/login");
-                      }, 3000);
-                    }
-                  }}
-                >
-                  BUY
-                </button>
-
-                {/* Modal */}
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {ticketDetails.map((ticket: any, index: number) => {
+              return (
                 <div
-                  className={`${
-                    showModal ? "flex justify-center items-center" : "hidden"
-                  } w-full h-screen fixed top-0 left-0 bg-[transparent] backdrop-blur-sm overflow-y-auto z-[200]`}
+                  className="rounded-[20px] bg-white text-black p-4 flex flex-col gap-2"
+                  key={index}
                 >
-                  <div className="flex flex-col bg-white p-8 m-4 border border-black/[0.2] rounded-2xl w-full md:w-[400px]">
-                    <div className="flex justify-end mb-4">
-                      <IoMdClose
-                        className="h-[20px] w-[20px]"
-                        onClick={() => {
-                          setShowModal(false);
-                        }}
-                      />
+                  <small
+                    style={{ fontFamily: "cursive" }}
+                    className="px-4 py-1 w-fit border-2 border-[#DFBB67] text-[#DFBB67] font-bold rounded-[20px]"
+                  >
+                    {(ticket.ticketType as string).toLocaleUpperCase().replace(/-/, " ")}
+                  </small>
+                  <div className="flex items-center gap-1">
+                    <div
+                      // style={{ fontFamily: "cursive" }}
+                      className="text-[20px] font-bold"
+                    >
+                      NGN{(ticket.cost).toLocaleString()}{" "}
+                      <span className="text-black/[0.5]">per person</span>
                     </div>
-                    <div className="text-center font-bold text-[20px] mb-8">
-                      Who are you buying the "
-                      {ticketTypeChoosen.toLocaleUpperCase().replace(/-/, " ")}"
-                      ticket for?
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        checked={buyForMyself}
-                        onChange={() => {
-                          setBuyForMyself(!buyForMyself);
-                        }}
-                      />{" "}
-                      I am also buying for myself
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        checked={buyForOthers}
-                        onChange={() => {
-                          setBuyForOthers(!buyForOthers);
-                        }}
-                      />{" "}
-                      Buy for others
-                    </div>
-                    {buyForOthers && (
-                      <div className="flex flex-col gap-4 mt-4">
-                        <div>
-                          <small className="text-black/[0.5]">
-                            Recepient's Email
-                          </small>
-                          <div className="flex gap-4">
-                            <input
-                              value={otherEmailInput}
-                              onChange={(e) => {
-                                setOtherEmailInput(e.target.value);
-                              }}
-                              type="email"
-                              placeholder="johndoe@gmail.com"
-                              className="w-full rounded-md px-4 border-black/[0.2] border-[1px] py-2 text-[#133F40]"
-                            />
-                            <button
-                              onClick={addEmail}
-                              className="border-black/[0.2] border-[1px] rounded-md px-4"
-                            >
-                              Add
-                            </button>
-                          </div>
-                          <div className="pt-4 flex flex-col gap-2">
-                            {otherEmails.map((email: string, index: number) => (
-                              <div
-                                className="flex justify-between items-center"
-                                key={index}
+                  </div>
+                  <div className="text-black/[0.8]">
+                    {ticket.ticketDescription}
+                  </div>
+                  <div>
+                      {ticket.totalTicketsBought} of {ticket.totalTicketsAvailable}
+                  </div>
+                  <button
+                    className="bg-[#DFBB67] text-black font-bold py-2 rounded-[20px]"
+                    onClick={() => {
+                      if(checIfLoggedIn()) {
+                        setShowModal(true);
+                        setTicketTypeChoosen(ticket.ticketType);
+                      } else {
+                        toast("You are not logged in, redirecting...");
+                        setTimeout(() => {
+                          navigate("/login");
+                        }, 3000);
+                      }
+                    }}
+                  >
+                    BUY
+                  </button>
+
+                  {/* Modal */}
+                  <div
+                    className={`${
+                      showModal ? "flex justify-center items-center" : "hidden"
+                    } w-full h-screen fixed top-0 left-0 bg-[transparent] backdrop-blur-sm overflow-y-auto z-[200]`}
+                  >
+                    <div className="flex flex-col bg-white p-8 m-4 border border-black/[0.2] rounded-2xl w-full md:w-[400px]">
+                      <div className="flex justify-end mb-4">
+                        <IoMdClose
+                          className="h-[20px] w-[20px]"
+                          onClick={() => {
+                            setShowModal(false);
+                          }}
+                        />
+                      </div>
+                      <div className="text-center font-bold text-[20px] mb-8">
+                        Who are you buying the "
+                        {ticketTypeChoosen.toLocaleUpperCase().replace(/-/, " ")}"
+                        ticket for?
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          checked={buyForMyself}
+                          onChange={() => {
+                            setBuyForMyself(!buyForMyself);
+                          }}
+                        />{" "}
+                        I am also buying for myself
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          checked={buyForOthers}
+                          onChange={() => {
+                            setBuyForOthers(!buyForOthers);
+                          }}
+                        />{" "}
+                        Buy for others
+                      </div>
+                      {buyForOthers && (
+                        <div className="flex flex-col gap-4 mt-4">
+                          <div>
+                            <small className="text-black/[0.5]">
+                              Recepient's Email
+                            </small>
+                            <div className="flex gap-4">
+                              <input
+                                value={otherEmailInput}
+                                onChange={(e) => {
+                                  setOtherEmailInput(e.target.value);
+                                }}
+                                type="email"
+                                placeholder="johndoe@gmail.com"
+                                className="w-full rounded-md px-4 border-black/[0.2] border-[1px] py-2 text-[#133F40]"
+                              />
+                              <button
+                                onClick={addEmail}
+                                className="border-black/[0.2] border-[1px] rounded-md px-4"
                               >
-                                <div>{email}</div>
-                                <button
-                                  onClick={() => {
-                                    removeEmail(email);
-                                  }}
+                                Add
+                              </button>
+                            </div>
+                            <div className="pt-4 flex flex-col gap-2">
+                              {otherEmails.map((email: string, index: number) => (
+                                <div
+                                  className="flex justify-between items-center"
+                                  key={index}
                                 >
-                                  <MdOutlineDelete className="h-[20px] w-[20px]" />
-                                </button>
-                              </div>
-                            ))}
+                                  <div>{email}</div>
+                                  <button
+                                    onClick={() => {
+                                      removeEmail(email);
+                                    }}
+                                  >
+                                    <MdOutlineDelete className="h-[20px] w-[20px]" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         </div>
+                      )}
+                      <div>
+                        <button
+                          className="bg-[#DFBB67] w-full text-black font-bold py-2 rounded-[20px] mt-4"
+                          onClick={() => {
+                            buyTicket();
+                          }}
+                        >
+                          {ticketModalState == "loading" ? (
+                            <SpinLoaderTwo />
+                          ) : (ticketDetails as any[]).find(
+                              (t: any) => t?.ticketType == ticketTypeChoosen
+                            )?.cost == 0 ? (
+                            "Get for Free"
+                          ) : (
+                            `Checkout (Pay ${totalToPay})`
+                          )}
+                        </button>
                       </div>
-                    )}
-                    <div>
-                      <button
-                        className="bg-[#DFBB67] w-full text-black font-bold py-2 rounded-[20px] mt-4"
-                        onClick={() => {
-                          buyTicket();
-                        }}
-                      >
-                        {ticketModalState == "loading" ? (
-                          <SpinLoaderTwo />
-                        ) : (ticketDetails as any[]).find(
-                            (t: any) => t?.ticketType == ticketTypeChoosen
-                          )?.cost == 0 ? (
-                          "Get for Free"
-                        ) : (
-                          `Checkout (Pay ${totalToPay})`
-                        )}
-                      </button>
                     </div>
                   </div>
+                  {/* Modal ends here */}
                 </div>
-                {/* Modal ends here */}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </DefaultLayout>

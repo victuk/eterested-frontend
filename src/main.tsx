@@ -14,6 +14,7 @@ import ViewEventPage from './pages/ViewEvent.tsx';
 import MyEventPage from './pages/user/MyEvents.tsx';
 import MyTicketPage from './pages/user/MyTickets.tsx';
 import ProfilePage from './pages/user/Profile.tsx';
+import SearchResultPage from './pages/SearchResultPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -56,10 +57,10 @@ const router = createBrowserRouter([
     path: "/profile/my-profile",
     element: <ProfilePage />
   },
-  // {
-  //   path: "/profile/my-favourites",
-  //   element: <FavouriteEvents />
-  // }
+  {
+    path: "/search",
+    element: <SearchResultPage />
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(
