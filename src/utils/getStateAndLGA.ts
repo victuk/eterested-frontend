@@ -1,17 +1,19 @@
 import stateAndLGAs from "../nigeria-state-and-lgas.json";
 
-interface StatesAndLGAs {
-    state: string;
-    alias: string;
-    lgas: string[]
+function getAll () {
+    return stateAndLGAs;
 }
 
 function getStates () {
-    const stateAndLGAs: StatesAndLGAs = [
-        {
-            alias: "",
-            state: "",
-            lgas: []
-        }
-    ];
+    return stateAndLGAs.map((s) => {return s.state});
+}
+
+function getLGAs (state: string) {
+    return stateAndLGAs.find(s => s.state == state)?.lgas;
+}
+
+export {
+    getAll,
+    getStates,
+    getLGAs
 }

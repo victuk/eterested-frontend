@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Joi from "joi";
@@ -6,7 +6,7 @@ import { register } from "../apiCalls/apiSdk";
 import { SpinLoaderTwo } from "../components/spinnerComponents";
 import { tagProperties } from "../utils/tagProperties";
 import { Tags } from "../interfaces/responseInterfaces";
-import stateAndLga from "../nigeria-state-and-lgas.json";
+import { getLGAs, getStates } from "../utils/getStateAndLGA";
 
 export default function RegisterPage() {
   const schema = Joi.object({
@@ -63,6 +63,22 @@ export default function RegisterPage() {
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [formState, setformState] = useState("idle");
+
+  const [lgas, setLgas] = useState<string[]>([]);
+
+  const updateLocalGovernment = () => {
+    const lgaResult = getLGAs(state);
+    console.log(lgaResult);
+    if(lgaResult != undefined) {
+
+      setLgas(lgaResult);
+    }
+
+  }
+
+  useEffect(() => {
+    updateLocalGovernment();
+  }, [state]);
 
   const changeIsOrganization = (e: any) => {
     if (e.target.value == "yes") {
@@ -263,7 +279,7 @@ export default function RegisterPage() {
               className="w-full rounded-md px-4 py-2 text-[#133F40]"
             >
               <option value="">Select</option>
-              <option value="akwa ibom">Akwa Ibom</option>
+              {getStates().map((state: string) => (<option value={state}>{state}</option>))}
             </select>
           </div>
           <div>
@@ -278,7 +294,7 @@ export default function RegisterPage() {
               className="w-full rounded-md px-4 py-2 text-[#133F40]"
             >
               <option value="">Select</option>
-              <option value="eket">Eket</option>
+              {lgas.length > 0 && lgas.map((s: string) => (<option value={s}>{s}</option>))}
             </select>
           </div>
           <div>
